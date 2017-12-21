@@ -14,6 +14,9 @@
 		BD70FBCE1FEB948700F018F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD70FBCC1FEB948700F018F6 /* LaunchScreen.storyboard */; };
 		BD70FBD91FEB948700F018F6 /* SOImgaeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBD81FEB948700F018F6 /* SOImgaeViewTests.swift */; };
 		BD70FBE41FEB948800F018F6 /* SOImgaeViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBE31FEB948800F018F6 /* SOImgaeViewUITests.swift */; };
+		BD70FBF31FEB991A00F018F6 /* SOImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBF21FEB991A00F018F6 /* SOImageView.swift */; };
+		BD70FBF51FEB9A0700F018F6 /* IMG_3398.PNG in Resources */ = {isa = PBXBuildFile; fileRef = BD70FBF41FEB9A0700F018F6 /* IMG_3398.PNG */; };
+		BD70FBF71FEB9ACC00F018F6 /* CropAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBF61FEB9ACC00F018F6 /* CropAreaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		BD70FBDF1FEB948800F018F6 /* SOImgaeViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOImgaeViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD70FBE31FEB948800F018F6 /* SOImgaeViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOImgaeViewUITests.swift; sourceTree = "<group>"; };
 		BD70FBE51FEB948800F018F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD70FBF21FEB991A00F018F6 /* SOImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOImageView.swift; sourceTree = "<group>"; };
+		BD70FBF41FEB9A0700F018F6 /* IMG_3398.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_3398.PNG; sourceTree = "<group>"; };
+		BD70FBF61FEB9ACC00F018F6 /* CropAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropAreaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,8 @@
 		BD70FBC21FEB948700F018F6 /* SOImgaeView */ = {
 			isa = PBXGroup;
 			children = (
+				BD70FBF41FEB9A0700F018F6 /* IMG_3398.PNG */,
+				BD70FBF11FEB990C00F018F6 /* SOImageView */,
 				BD70FBC31FEB948700F018F6 /* AppDelegate.swift */,
 				BD70FBC51FEB948700F018F6 /* ViewController.swift */,
 				BD70FBC71FEB948700F018F6 /* Main.storyboard */,
@@ -123,6 +131,15 @@
 				BD70FBE51FEB948800F018F6 /* Info.plist */,
 			);
 			path = SOImgaeViewUITests;
+			sourceTree = "<group>";
+		};
+		BD70FBF11FEB990C00F018F6 /* SOImageView */ = {
+			isa = PBXGroup;
+			children = (
+				BD70FBF21FEB991A00F018F6 /* SOImageView.swift */,
+				BD70FBF61FEB9ACC00F018F6 /* CropAreaView.swift */,
+			);
+			path = SOImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +251,7 @@
 			files = (
 				BD70FBCE1FEB948700F018F6 /* LaunchScreen.storyboard in Resources */,
 				BD70FBCB1FEB948700F018F6 /* Assets.xcassets in Resources */,
+				BD70FBF51FEB9A0700F018F6 /* IMG_3398.PNG in Resources */,
 				BD70FBC91FEB948700F018F6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,7 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD70FBC61FEB948700F018F6 /* ViewController.swift in Sources */,
+				BD70FBF71FEB9ACC00F018F6 /* CropAreaView.swift in Sources */,
 				BD70FBC41FEB948700F018F6 /* AppDelegate.swift in Sources */,
+				BD70FBF31FEB991A00F018F6 /* SOImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
