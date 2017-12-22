@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol CropAreaViewDelegate:class {
+    func cropFrameChange() -> Void
+}
 class CropAreaView: UIView {
 
-    var cornerHeight = 6.0
-   private var beyond = 5.0
+   weak var delegate:CropAreaViewDelegate?
     
+    var cornerHeight = 6.0
+    private var beyond = 5.0
+    
+   private var scale:CGFloat = 1.0
+    
+    private var currentScale:CGFloat = 0.0
     private var cornerWidth = 40.0
     
     var layerWidth = 0.5
@@ -116,8 +124,33 @@ class CropAreaView: UIView {
            let pan_br = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
         bottomRight.addGestureRecognizer(pan_br)
         
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchGestureAction(sender:)))
+        
+        self.addGestureRecognizer(pinch)
+        
     }
 
+   @objc func pinchGestureAction (sender:UIPinchGestureRecognizer) -> Void {
+  
+    self.currentScale = self.scale + (sender.scale - 1)
+    
+   
+    if self.currentScale > 2.5 {
+        self.currentScale = 2.5
+    }else if (self.currentScale < 1){
+        self.currentScale = 1.0
+    }
+    
+    sender.view?.transform = CGAffineTransform.init(scaleX: self.currentScale, y: self.currentScale)
+    
+
+    if sender.state == .ended {
+        self.scale = self.currentScale
+    }
+    self.updateFrame()
+    self.delegate?.cropFrameChange()
+    
+    }
     @objc func panGestureAction(sender:UIPanGestureRecognizer) -> Void {
         
    
