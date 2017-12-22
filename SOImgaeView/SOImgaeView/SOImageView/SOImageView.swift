@@ -29,9 +29,11 @@ class SOImageView: UIView {
         self.stup()
     }
     func stup() -> Void {
+        let image = UIImage(named: "IMG_3398")
+        
         cropImageView.frame = self.bounds
+        cropImageView.image = image
         cropImageView.isUserInteractionEnabled = true
-        cropImageView.image = UIImage(named: "IMG_3398")
         cropImageView.contentMode = .scaleAspectFit
         self.addSubview(cropImageView)
         

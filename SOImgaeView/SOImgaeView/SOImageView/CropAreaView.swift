@@ -58,7 +58,7 @@ class CropAreaView: UIView {
         
     rightBottom.frame = CGRect(x: Double(self.bounds.size.width) - layerWidth, y: Double(self.bounds.size.height) - cornerWidth + beyond, width: cornerHeight, height: cornerWidth)
         
-    bottomRight.frame = CGRect(x:  Double(self.bounds.size.width - CGFloat(cornerWidth)), y: Double(self.bounds.size.height) - layerWidth, width: cornerWidth, height: cornerHeight)
+    bottomRight.frame = CGRect(x: Double(self.bounds.size.width - CGFloat(cornerWidth)) + beyond+layerWidth, y: Double(self.bounds.size.height) - layerWidth, width: cornerWidth, height: cornerHeight)
         
     }
     func stup() -> Void {
@@ -86,6 +86,55 @@ class CropAreaView: UIView {
         
         bottomRight.backgroundColor = UIColor.white
         self.addSubview(bottomRight)
+      
+        self.addPanGesture()
+        
+    }
+    
+    func addPanGesture() -> Void {
+        
+        let pan_tf = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        topLeft.addGestureRecognizer(pan_tf)
+        
+        let pan_lt = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        
+        leftTop.addGestureRecognizer(pan_lt)
+        
+         let pan_tr = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        topRight.addGestureRecognizer(pan_tr)
+      
+        let pan_rt = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        rightTop.addGestureRecognizer(pan_rt)
+        let pan_lb = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        leftBottom.addGestureRecognizer(pan_lb)
+        let pan_bl = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        bottomLeft.addGestureRecognizer(pan_bl)
+        
+         let pan_rb = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        rightBottom.addGestureRecognizer(pan_rb)
+        
+           let pan_br = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        bottomRight.addGestureRecognizer(pan_br)
+        
     }
 
+    @objc func panGestureAction(sender:UIPanGestureRecognizer) -> Void {
+        
+   
+        
+    }
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+
+        for (_,view) in self.subviews.enumerated() {
+            if view.frame.contains(point) {
+                return view
+            }
+        }
+        if self.bounds.contains(point) {
+            return self
+        }
+
+
+        return nil
+    }
 }
