@@ -30,6 +30,7 @@ class CropAreaView: UIView {
     private var cornerWidth = 40.0
     
     var pichSize:CGSize  = CGSize.zero
+    var pichCenter:CGPoint = CGPoint.zero
     
     
     var layerWidth = 0.5
@@ -166,16 +167,34 @@ class CropAreaView: UIView {
         
         self.bounds = CGRect(x: 0, y: 0, width: width, height: height)
         self.center = center
-       // self.updateFrame()
+    
         self.delegate?.cropFrameChange(scale: 0.0)
-        
-        
-     
         
     }
     @objc func panGestureAction(sender:UIPanGestureRecognizer) -> Void {
+        let point = sender.translation(in: self)
+        if sender.state == .began {
+            self.pichSize = self.frame.size
+            self.pichCenter = self.center
+          
+        }
+        if sender.state == .changed {
+            
+            
+            let avg = (point.x + point.y) / 2
+            
+            print(point)
+     
+            
+            self.frame = CGRect(x: 0, y: 0, width: self.pichSize.width + avg, height: self.pichSize.height + avg)
+            
+            
+            self.center = CGPoint(x: self.pichCenter.x + avg/2, y: self.pichCenter.y + avg / 2)
+            
+            self.delegate?.cropFrameChange(scale: 0.0)
+        }
         
-   
+        
         
     }
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
