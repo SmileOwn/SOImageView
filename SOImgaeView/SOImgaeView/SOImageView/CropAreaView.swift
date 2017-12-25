@@ -9,19 +9,28 @@
 import UIKit
 
 protocol CropAreaViewDelegate:class {
-    func cropFrameChange() -> Void
+    func cropFrameChange(scale:CGFloat) -> Void
 }
 class CropAreaView: UIView {
 
    weak var delegate:CropAreaViewDelegate?
     
+    var minWidth:CGFloat = 0.0
+    var minHeight:CGFloat = 0.0
+    
+    
     var cornerHeight = 6.0
+    
+    
     private var beyond = 5.0
     
    private var scale:CGFloat = 1.0
     
     private var currentScale:CGFloat = 0.0
     private var cornerWidth = 40.0
+    
+    var pichSize:CGSize  = CGSize.zero
+    
     
     var layerWidth = 0.5
     
@@ -131,25 +140,38 @@ class CropAreaView: UIView {
     }
 
    @objc func pinchGestureAction (sender:UIPinchGestureRecognizer) -> Void {
-  
-    self.currentScale = self.scale + (sender.scale - 1)
-    
-   
-    if self.currentScale > 2.5 {
-        self.currentScale = 2.5
-    }else if (self.currentScale < 1){
-        self.currentScale = 1.0
-    }
-    
-    sender.view?.transform = CGAffineTransform.init(scaleX: self.currentScale, y: self.currentScale)
-    
 
-    if sender.state == .ended {
-        self.scale = self.currentScale
-    }
-    self.updateFrame()
-    self.delegate?.cropFrameChange()
+        if sender.state == .began {
+            self.pichSize = self.frame.size
+            
+        }
     
+        if sender.state == .changed {
+            self.resetScaleFactor(scale: sender.scale)
+        }
+    
+    }
+    
+    
+    func resetScaleFactor(scale:CGFloat) -> Void {
+        let center = self.center
+       
+        var width = self.pichSize.width * scale
+        var height = self.pichSize.height * scale
+        
+        width = width < minWidth ? minHeight :  (width > minWidth * 2.0 ? minWidth * 2.0 : width)
+        
+        height = height < minHeight ? minHeight : (height > minHeight * 2.0 ? minHeight * 2.0 : height)
+        
+        
+        self.bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        self.center = center
+       // self.updateFrame()
+        self.delegate?.cropFrameChange(scale: 0.0)
+        
+        
+     
+        
     }
     @objc func panGestureAction(sender:UIPanGestureRecognizer) -> Void {
         

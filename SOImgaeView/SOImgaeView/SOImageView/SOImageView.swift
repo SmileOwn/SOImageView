@@ -42,6 +42,8 @@ class SOImageView: UIView {
         cropImageView.addSubview(shadeView)
         
         croAreaView.frame = CGRect(x: 0, y: 0, width: cro_width, height: cro_height)
+        croAreaView.minWidth    = CGFloat(cro_width)
+        croAreaView.minHeight   = CGFloat(cro_width)
         croAreaView.delegate = self
         
         cropImageView.addSubview(croAreaView)
@@ -96,7 +98,7 @@ class SOImageView: UIView {
 
 }
 extension SOImageView:CropAreaViewDelegate{
-    func cropFrameChange() {
+    func cropFrameChange(scale: CGFloat) {
         self.resetCropArea()
     }
 }
