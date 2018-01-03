@@ -112,17 +112,21 @@ class CropAreaView: UIView {
     func addPanGesture() -> Void {
         
         let pan_tf = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        topLeft.tag = 1001
         topLeft.addGestureRecognizer(pan_tf)
         
         let pan_lt = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
-        
+        leftTop.tag = 1002
         leftTop.addGestureRecognizer(pan_lt)
         
          let pan_tr = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        topRight.tag = 1003
         topRight.addGestureRecognizer(pan_tr)
       
         let pan_rt = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
+        rightTop.tag = 1004
         rightTop.addGestureRecognizer(pan_rt)
+       
         let pan_lb = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
         leftBottom.addGestureRecognizer(pan_lb)
         let pan_bl = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(sender:)))
@@ -179,17 +183,37 @@ class CropAreaView: UIView {
           
         }
         if sender.state == .changed {
+            var x  = point.x
+            var y = point.y
+            
+            let centerAvg = (point.x + point.y) / 2
+            
+            if sender.view?.tag == 1001 || sender.view?.tag == 1002 {
+                x = -(point.x)
+                y = -(point.y)
+            }
+            
+            if sender.view?.tag == 1003 || sender.view?.tag == 1004{
+
+                y =  -(point.y)
+                x =  -(point.x)
+               
+              
+            }
+            
+            let avg = (x + y) / 2
+            var width = self.pichSize.width + avg
+            var height = self.pichSize.height + avg
+            
+            width = width < minWidth ? minHeight :  (width > minWidth * 2.0 ? minWidth * 2.0 : width)
+            
+            height = height < minHeight ? minHeight : (height > minHeight * 2.0 ? minHeight * 2.0 : height)
             
             
-            let avg = (point.x + point.y) / 2
+            self.frame.size = CGSize(width: width, height: height)
             
-            print(point)
-     
-            
-            self.frame = CGRect(x: 0, y: 0, width: self.pichSize.width + avg, height: self.pichSize.height + avg)
-            
-            
-            self.center = CGPoint(x: self.pichCenter.x + avg/2, y: self.pichCenter.y + avg / 2)
+            self.center = CGPoint(x: self.pichCenter.x + centerAvg/2, y: self.pichCenter.y + centerAvg / 2)
+          
             
             self.delegate?.cropFrameChange(scale: 0.0)
         }
