@@ -52,6 +52,9 @@ class CropAreaView: UIView {
     
     var cornerRBView = UIView()
     
+    var caLayer = CAShapeLayer()
+    
+    
     
     
     override init(frame: CGRect) {
@@ -66,6 +69,7 @@ class CropAreaView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.updateFrame()
+        self.drawBezier()
     }
     
     func updateFrame() -> Void {
@@ -119,13 +123,37 @@ class CropAreaView: UIView {
         
         bottomRight.backgroundColor = UIColor.white
         self.addSubview(bottomRight)
+        
       
         self.addSubview(cornerLBView)
         self.addSubview(cornerLTView)
         self.addSubview(cornerRTView)
         self.addSubview(cornerRBView)
         
+        caLayer.lineWidth = 1
+        caLayer.strokeColor = UIColor.white.cgColor
+        self.layer.addSublayer(caLayer)
         self.addPanGesture()
+        
+    }
+   
+    
+    func drawBezier() -> Void {
+        let path = UIBezierPath()
+        let w = self.bounds.size.width
+        let h = self.bounds.size.height
+        
+        
+        path.move(to: CGPoint(x: w / 3.0, y: 0))
+        path.addLine(to: CGPoint(x: w / 3.0, y: h))
+        path.move(to: CGPoint(x: w / 3.0 * 2.0, y: 0))
+        path.addLine(to: CGPoint(x: w / 3.0 * 2.0 , y: h))
+        path.move(to: CGPoint(x: 0, y: h / 3.0))
+        path.addLine(to: CGPoint(x: w, y: h/3.0))
+        path.move(to: CGPoint(x: 0, y: h/3.0 * 2.0))
+        path.addLine(to: CGPoint(x: w, y: h / 3.0 * 2.0))
+        caLayer.path = path.cgPath
+        
         
     }
     
