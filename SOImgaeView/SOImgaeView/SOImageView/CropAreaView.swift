@@ -243,6 +243,7 @@ class CropAreaView: UIView {
         
         
     }
+  
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 
         for (_,view) in self.subviews.enumerated() {

@@ -16,6 +16,7 @@
 		BD70FBE41FEB948800F018F6 /* SOImgaeViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBE31FEB948800F018F6 /* SOImgaeViewUITests.swift */; };
 		BD70FBF31FEB991A00F018F6 /* SOImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBF21FEB991A00F018F6 /* SOImageView.swift */; };
 		BD70FBF71FEB9ACC00F018F6 /* CropAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD70FBF61FEB9ACC00F018F6 /* CropAreaView.swift */; };
+		BD9844BD200368440098B1C5 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9844BC200368440098B1C5 /* SecondController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		BD70FBE51FEB948800F018F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD70FBF21FEB991A00F018F6 /* SOImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOImageView.swift; sourceTree = "<group>"; };
 		BD70FBF61FEB9ACC00F018F6 /* CropAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropAreaView.swift; sourceTree = "<group>"; };
+		BD9844BC200368440098B1C5 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				BD70FBCA1FEB948700F018F6 /* Assets.xcassets */,
 				BD70FBCC1FEB948700F018F6 /* LaunchScreen.storyboard */,
 				BD70FBCF1FEB948700F018F6 /* Info.plist */,
+				BD9844BC200368440098B1C5 /* SecondController.swift */,
 			);
 			path = SOImgaeView;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				BD70FBF71FEB9ACC00F018F6 /* CropAreaView.swift in Sources */,
 				BD70FBC41FEB948700F018F6 /* AppDelegate.swift in Sources */,
 				BD70FBF31FEB991A00F018F6 /* SOImageView.swift in Sources */,
+				BD9844BD200368440098B1C5 /* SecondController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

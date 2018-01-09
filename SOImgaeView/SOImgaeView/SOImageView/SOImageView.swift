@@ -16,8 +16,16 @@ class SOImageView: UIView {
     
     var cro_width = 100.0
     var cro_height = 100.0
+    var cropImage:UIImage = UIImage(named: "IMG_3398")!
+    var croCenter = CGPoint.zero
     
-    
+    var imageRatio:CGFloat{
+        return cropImage.size.width / cropImage.size.height
+    }
+    var selfRatio:CGFloat {
+        
+        return self.bounds.size.width / self.bounds.size.height
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,58 +36,77 @@ class SOImageView: UIView {
         super.init(coder: aDecoder)
         self.stup()
     }
+    func resetImageView() -> Void {
+        
+        if imageRatio > selfRatio {
+            let paddingTopBottom = floor((self.bounds.size.height - self.bounds.size.width / imageRatio) / 2.0)
+            cropImageView.frame = CGRect(x: 0, y: paddingTopBottom, width: self.bounds.size.width, height: floor(self.bounds.size.width / imageRatio))
+            
+            
+        }else{
+            let paddingLeftRight = floor((self.bounds.size.width - self.bounds.size.height * imageRatio) / 2.0)
+            cropImageView.frame = CGRect(x: paddingLeftRight, y: 0, width: floor(self.bounds.size.height * imageRatio), height: self.bounds.size.height)
+            
+        }
+        shadeView.frame = cropImageView.bounds
+         croAreaView.frame = CGRect(x: (CGFloat(cropImageView.frame.size.width) - CGFloat(cro_width)) / 2.0, y: (CGFloat(cropImageView.frame.size.height) - CGFloat(cro_height)) / 2.0, width: CGFloat(cro_width), height: CGFloat(cro_height))
+       
+            self.resetCropArea()
+        
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.resetImageView()
+        
+    }
     func stup() -> Void {
-        let image = UIImage(named: "IMG_3398")
+        
         
         cropImageView.frame = self.bounds
-        cropImageView.image = image
+        cropImageView.image = cropImage
         cropImageView.isUserInteractionEnabled = true
-        cropImageView.contentMode = .scaleAspectFit
+        cropImageView.contentMode = .scaleToFill
         self.addSubview(cropImageView)
         
-        shadeView.frame = self.bounds
+        
         shadeView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         cropImageView.addSubview(shadeView)
+    
         
-        croAreaView.frame = CGRect(x: 0, y: 0, width: cro_width, height: cro_height)
         croAreaView.minWidth    = CGFloat(cro_width)
         croAreaView.minHeight   = CGFloat(cro_width)
         croAreaView.delegate = self
         
         cropImageView.addSubview(croAreaView)
-        croAreaView.center = cropImageView.center
-       
+ 
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panCropAreaView(sender:)))
         croAreaView.addGestureRecognizer(panGestureRecognizer)
+    
         
-        self.resetCropArea()
         
     }
     @objc func panCropAreaView(sender:UIPanGestureRecognizer) -> Void {
       
-        let translation = sender.translation(in: self.cropImageView)
-     
-        var point = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
-        
-        point.y = max((sender.view?.frame.size.height)!/2, point.y)
-        
-        point.y = min(self.cropImageView.frame.size.height - (sender.view?.frame.size.height)! / 2,point.y)
-        
-        point.x = max((sender.view?.frame.size.width)! / 2, point.x)
-        
-        point.x = min(self.cropImageView.frame.size.width - (sender.view?.frame.size.width)! / 2,point.x)
-        
-        
-        sender.view?.center = point
-        
-        
-        sender.setTranslation(CGPoint.zero, in: self.cropImageView)
-        
-        
-        self.resetCropArea()
-        
-        
-        
+        switch sender.state {
+        case .began:
+            croCenter = self.croAreaView.center
+            break;
+        case .changed:
+            let translation = sender.translation(in: self.cropImageView)
+            let willCenter = CGPoint(x: croCenter.x + translation.x, y: croCenter.y + translation.y)
+            
+            let centerMinX = croAreaView.frame.size.width / 2.0
+            let centerMaxX = self.cropImageView.frame.size.width - croAreaView.frame.size.width / 2.0
+            let centerMinY = croAreaView.frame.size.height / 2.0
+            let centerMaxY = cropImageView.frame.size.height - croAreaView.frame.size.height / 2.0
+            croAreaView.center = CGPoint(x: min(max(centerMinX, willCenter.x), centerMaxX), y: min(max(centerMinY, willCenter.y), centerMaxY))
+            self.resetCropArea()
+            break
+        default:
+            break
+        }
+    
     }
     func resetCropArea() -> Void {
         let path = UIBezierPath(rect: cropImageView.bounds)
@@ -92,6 +119,20 @@ class SOImageView: UIView {
             shadeView.layer.mask = shapeLayer
         }
         shapeLayer?.path = path.cgPath
+    }
+ 
+    func test() -> UIImage {
+        
+        let scale = cropImageView.frame.size.width / cropImage.size.width
+        
+        let rect = CGRect(x: self.croAreaView.frame.minX / scale, y: self.croAreaView.frame.minY/scale, width: self.croAreaView.frame.width / scale, height: self.croAreaView.frame.size.height / scale)
+      
+        
+        let imageRef = cropImage.cgImage?.cropping(to:rect)
+        
+       
+        return UIImage(cgImage: imageRef!, scale: 2.0, orientation: cropImage.imageOrientation)
+        
     }
     
     

@@ -9,12 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var soImageView: SOImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
     @IBAction func buttonAction(_ sender: Any) {
+        
+        let storeboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let controller = storeboard.instantiateViewController(withIdentifier: "SecondController") as! SecondController
+        controller.image  = soImageView.test()
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        
         
     }
     
