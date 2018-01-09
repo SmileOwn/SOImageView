@@ -123,15 +123,15 @@ class SOImageView: UIView {
  
     func test() -> UIImage {
         
-        let scale = cropImageView.frame.size.width / cropImage.size.width
+        let scale = self.cropImageView.frame.size.width / cropImage.size.width
         
-        let rect = CGRect(x: self.croAreaView.frame.minX / scale, y: self.croAreaView.frame.minY/scale, width: self.croAreaView.frame.width / scale, height: self.croAreaView.frame.size.height / scale)
+        let rect = CGRect(x: self.croAreaView.frame.minX / scale, y: self.croAreaView.frame.minY / scale, width: self.croAreaView.frame.width / scale, height: self.croAreaView.frame.size.height / scale)
       
         
         let imageRef = cropImage.cgImage?.cropping(to:rect)
         
        
-        return UIImage(cgImage: imageRef!, scale: 2.0, orientation: cropImage.imageOrientation)
+        return UIImage(cgImage: imageRef!)
         
     }
     
